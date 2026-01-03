@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse PGs - UniStay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <style>
+        .listings-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .filters-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .listings-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .pg-card-horizontal {
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            transition: all var(--transition-base);
+        }
+
+        .pg-card-horizontal:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-4px);
+        }
+
+        .pg-image-container {
+            position: relative;
+            height: 250px;
+            background: var(--gray-200);
+            overflow: hidden;
+        }
+
+        .pg-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pg-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .pg-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pg-price {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .pg-location {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .amenities-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .amenity-tag {
+            background: var(--gray-100);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            color: var(--gray-700);
+        }
+
+        .pg-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .pg-card-horizontal {
+                grid-template-columns: 1fr;
+            }
+
+            .pg-image-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="navbar-brand">🏠 UniStay</a>
+            <div class="navbar-menu">
+                <a href="/" class="navbar-link">Home</a>
+                <a href="/listings.html" class="navbar-link active">Browse PGs</a>
+                <a href="/auth.html" class="navbar-link">Login</a>
+                <a href="/auth.html?mode=signup" class="btn btn-primary btn-sm">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="listings-header">
+        <div class="container">
+            <h1>Browse Available PGs</h1>
+            <p>Find your perfect accommodation from our verified listings</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="padding-bottom: 4rem;">
+        <!-- Filters -->
+        <div class="filters-section">
+            <h3 style="margin-bottom: 1rem;">Filter Results</h3>
+            <div class="filter-row">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-input" id="filterLocation" placeholder="Search location...">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Max Price</label>
+                    <select class="form-select" id="filterPrice">
+                        <option value="">Any Price</option>
+                        <option value="3000">Under ₹3,000</option>
+                        <option value="5000">Under ₹5,000</option>
+                        <option value="7000">Under ₹7,000</option>
+                        <option value="10000">Under ₹10,000</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select" id="filterGender">
+                        <option value="">Any</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="any">Co-living</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Sort By</label>
+                    <select class="form-select" id="sortBy">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+            <div style="margin-top: 1rem;">
+                <button class="btn btn-primary" id="applyFilters">Apply Filters</button>
+                <button class="btn btn-ghost" id="clearFilters">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Listings -->
+        <div id="listingsContainer" class="listings-container">
+            <!-- Loading state -->
+            <div class="skeleton-card" style="height: 250px;"></div>
+            <div class="skeleton-card" style="height: 250px;"></div>
+            <div class="skeleton-card" style="height: 250px;"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db } from '/js/firebase-config.js';
+        import { collection, query, where, orderBy, getDocs, limit } from 'firebase/firestore';
+        import { formatCurrency, showToast, getQueryParam } from '/js/utils.js';
+
+        let allPGs = [];
+        let filteredPGs = [];
+
+        // Load PGs from Firestore
+        async function loadPGs() {
+            try {
+                const pgsRef = collection(db, 'pgs');
+                const q = query(pgsRef, where('available', '==', true), orderBy('createdAt', 'desc'), limit(50));
+                const querySnapshot = await getDocs(q);
+
+                allPGs = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                filteredPGs = [...allPGs];
+
+                // Apply search from URL if present
+                const searchQuery = getQueryParam('search');
+                if (searchQuery) {
+                    document.getElementById('filterLocation').value = searchQuery;
+                    applyFilters();
+                } else {
+                    displayPGs(filteredPGs);
+                }
+            } catch (error) {
+                console.error('Error loading PGs:', error);
+                // Show demo data for now
+                showDemoData();
+            }
+        }
+
+        // Show demo data (for testing without Firebase)
+        function showDemoData() {
+            const demoData = [
+                {
+                    id: '1',
+                    title: 'Sunny Student Home',
+                    location: { area: 'College Road', city: 'Main Gate' },
+                    price: 5000,
+                    gender: 'any',
+                    amenities: ['WiFi', 'Meals', 'Laundry', 'AC'],
+                    images: ['https://placehold.co/600x400/e0e0e0/555?text=PG+Photo'],
+                    contactInfo: { phone: '+911234567890', whatsapp: '911234567890' }
+                },
+                {
+                    id: '2',
+                    title: 'Green View Boys PG',
+                    location: { area: 'Market Street', city: 'Behind Cinema' },
+                    price: 4500,
+                    gender: 'male',
+                    amenities: ['WiFi', 'Parking', 'Security'],
+                    images: ['https://placehold.co/600x400/e0e0e0/555?text=Interior'],
+                    contactInfo: { phone: '+911234567890', whatsapp: '911234567890' }
+                },
+                {
+                    id: '3',
+                    title: 'Elite Girls Hostel',
+                    location: { area: 'Civil Lines', city: 'Near Bus Stand' },
+                    price: 6000,
+                    gender: 'female',
+                    amenities: ['WiFi', 'Meals', 'AC', 'Security', 'Gym'],
+                    images: ['https://placehold.co/600x400/e0e0e0/555?text=Room+View'],
+                    contactInfo: { phone: '+911234567890', whatsapp: '911234567890' }
+                }
+            ];
+
+            allPGs = demoData;
+            filteredPGs = [...demoData];
+            displayPGs(filteredPGs);
+        }
+
+        // Display PGs
+        function displayPGs(pgs) {
+            const container = document.getElementById('listingsContainer');
+
+            if (pgs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🏠</div>
+                        <h3>No PGs Found</h3>
+                        <p>Try adjusting your filters or search criteria</p>
+                        <button class="btn btn-primary" id="clearFiltersEmpty">Clear Filters</button>
+                    </div>
+                `;
+                document.getElementById('clearFiltersEmpty')?.addEventListener('click', clearFilters);
+                return;
+            }
+
+            container.innerHTML = pgs.map(pg => `
+                <div class="pg-card-horizontal">
+                    <div class="pg-image-container">
+                        <img src="${pg.images?.[0] || 'https://placehold.co/600x400/e0e0e0/555?text=PG'}" alt="${pg.title}">
+                        <span class="badge badge-primary" style="position: absolute; top: 1rem; right: 1rem;">
+                            ${pg.gender === 'male' ? 'Boys' : pg.gender === 'female' ? 'Girls' : 'Co-living'}
+                        </span>
+                    </div>
+                    <div class="pg-content">
+                        <div class="pg-header">
+                            <div>
+                                <h3 class="pg-title">${pg.title}</h3>
+                                <div class="pg-location">
+                                    📍 ${pg.location.area}, ${pg.location.city}
+                                </div>
+                            </div>
+                            <div class="pg-price">${formatCurrency(pg.price)}<span style="font-size: 0.875rem; font-weight: 400; color: var(--gray-600);">/month</span></div>
+                        </div>
+                        <div class="amenities-list">
+                            ${pg.amenities?.slice(0, 5).map(amenity => `<span class="amenity-tag">${amenity}</span>`).join('') || ''}
+                        </div>
+                        <div class="pg-actions">
+                            <a href="tel:${pg.contactInfo?.phone}" class="btn btn-outline flex-1">📞 Call Owner</a>
+                            <a href="https://wa.me/${pg.contactInfo?.whatsapp}" class="btn btn-primary flex-1" style="background: #25D366;">💬 WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const location = document.getElementById('filterLocation').value.toLowerCase();
+            const maxPrice = document.getElementById('filterPrice').value;
+            const gender = document.getElementById('filterGender').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            filteredPGs = allPGs.filter(pg => {
+                const matchLocation = !location ||
+                    pg.location.area.toLowerCase().includes(location) ||
+                    pg.location.city.toLowerCase().includes(location) ||
+                    pg.title.toLowerCase().includes(location);
+
+                const matchPrice = !maxPrice || pg.price <= parseInt(maxPrice);
+                const matchGender = !gender || pg.gender === gender || pg.gender === 'any';
+
+                return matchLocation && matchPrice && matchGender;
+            });
+
+            // Sort
+            if (sortBy === 'price-low') {
+                filteredPGs.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-high') {
+                filteredPGs.sort((a, b) => b.price - a.price);
+            }
+
+            displayPGs(filteredPGs);
+        }
+
+        // Clear filters
+        function clearFilters() {
+            document.getElementById('filterLocation').value = '';
+            document.getElementById('filterPrice').value = '';
+            document.getElementById('filterGender').value = '';
+            document.getElementById('sortBy').value = 'newest';
+            filteredPGs = [...allPGs];
+            displayPGs(filteredPGs);
+        }
+
+        // Event listeners
+        document.getElementById('applyFilters').addEventListener('click', applyFilters);
+        document.getElementById('clearFilters').addEventListener('click', clearFilters);
+
+        // Auto-apply on filter change
+        ['filterLocation', 'filterPrice', 'filterGender', 'sortBy'].forEach(id => {
+            document.getElementById(id).addEventListener('change', applyFilters);
+        });
+
+        // Load PGs on page load
+        loadPGs();
+    </script>
+</body>
+
+</html>

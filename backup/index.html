@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student PG Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">UniStay</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#listings">Find PG</a></li>
+                <li><a href="#list-pg" class="btn-nav">List Your PG</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="container hero-content">
+            <h1>Find Your Perfect <br> <span class="highlight">Student PG</span></h1>
+            <p>Verified accommodations, student-friendly rates, and zero brokerage. The easiest way to settle in.</p>
+
+            <div class="quick-filters">
+                <span>Browse by Area:</span>
+                <div class="filter-buttons">
+                    <a href="#listings" class="chip">Near College</a>
+                    <a href="#listings" class="chip">Town Area</a>
+                    <a href="#listings" class="chip">Bus Stand</a>
+                </div>
+            </div>
+
+            <a href="#listings" class="btn btn-primary btn-large">Browse Available PGs</a>
+        </div>
+    </header>
+
+    <section id="listings" class="section section-featured">
+        <div class="container">
+            <h2 class="section-title">Available PGs Near You</h2>
+            <p class="section-subtitle">Browse verified student accommodations with transparent pricing</p>
+
+            <div class="pg-grid">
+                <div class="pg-card">
+                    <div class="pg-image"
+                        style="background-image: url('https://placehold.co/600x400/e0e0e0/555?text=PG+Photo');"></div>
+                    <div class="pg-details">
+                        <span class="badge">Near College</span>
+                        <h3>Sunny Student Home</h3>
+                        <p class="location">📍 College Road, Main Gate</p>
+                        <p class="price">₹5,000 / month</p>
+                        <div class="pg-actions">
+                            <a href="tel:+1234567890" class="btn btn-outline">Call Owner</a>
+                            <a href="https://wa.me/1234567890" class="btn btn-whatsapp">WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pg-card">
+                    <div class="pg-image"
+                        style="background-image: url('https://placehold.co/600x400/e0e0e0/555?text=Interior');"></div>
+                    <div class="pg-details">
+                        <span class="badge">Town Area</span>
+                        <h3>Green View Boys PG</h3>
+                        <p class="location">📍 Market Street, Behind Cinema</p>
+                        <p class="price">₹4,500 / month</p>
+                        <div class="pg-actions">
+                            <a href="tel:+1234567890" class="btn btn-outline">Call Owner</a>
+                            <a href="https://wa.me/1234567890" class="btn btn-whatsapp">WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pg-card">
+                    <div class="pg-image"
+                        style="background-image: url('https://placehold.co/600x400/e0e0e0/555?text=Room+View');"></div>
+                    <div class="pg-details">
+                        <span class="badge">Bus Stand</span>
+                        <h3>Elite Girls Hostel</h3>
+                        <p class="location">📍 Civil Lines, Near Bus Stand</p>
+                        <p class="price">₹6,000 / month</p>
+                        <div class="pg-actions">
+                            <a href="tel:+1234567890" class="btn btn-outline">Call Owner</a>
+                            <a href="https://wa.me/1234567890" class="btn btn-whatsapp">WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="list-pg" class="section section-secondary">
+        <div class="container">
+            <h3 class="section-title-small">PG Owners: List Your Property</h3>
+            <p class="section-subtitle-small">Fill out the form below to list your PG. All listings are reviewed before
+                going live.</p>
+
+            <!-- Embedded Google Form -->
+            <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSeGyZCrU0h04x9q7f5A4I0ILitaYs8LpIGYT6o_Fi1PEwe3Xg/viewform?embedded=true"
+                width="100%" height="1200" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <h3>UniStay</h3>
+            <p>Helping students find their home away from home.</p>
+            <div class="contact-links">
+                <a href="mailto:support@unistay.com">Email Us</a>
+                <a href="https://wa.me/1234567890" class="whatsapp-link">Chat on WhatsApp</a>
+            </div>
+            <p class="copyright">&copy; 2024 UniStay. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
